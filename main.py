@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from web import explorer
 import uvicorn
+from fake import explorer as expl
 
 from starlette import middleware
 from starlette.middleware import Middleware
@@ -25,18 +26,11 @@ app = FastAPI(middleware=middleware)
 templates = Jinja2Templates(directory="templates")
 
 
-_explorers = [
-    ("Claude Hande", "GE", 45),
-    ("Fritz HourherHoff", "GE", 42),
-    ("Mike Clarke", "GB", 67),
-]
-
-
 @app.get("")
 @app.get("/")
 def index(request: Request):
     return templates.TemplateResponse(
-        "index.html", {"request": request, "listOfExplorers": _explorers}
+        "index.html", {"request": request, "listOfExplorers": expl.get_all()}
     )
 
 
