@@ -25,10 +25,19 @@ app = FastAPI(middleware=middleware)
 templates = Jinja2Templates(directory="templates")
 
 
+_explorers = [
+    ("Claude Hande", "GE", 45),
+    ("Fritz HourherHoff", "GE", 42),
+    ("Mike Clarke", "GB", 67),
+]
+
+
 @app.get("")
 @app.get("/")
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "listOfExplorers": _explorers}
+    )
 
 
 if __name__ == "__main__":

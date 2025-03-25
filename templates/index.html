@@ -8,7 +8,9 @@
 <body>
     <h1>This is a list of explorers</h1>
     <ul>
-        <li>This is a single element.</li>
+        {% for item in listOfExplorers %}
+        <li> {{ item }} </li>
+        {% endfor %}
     </ul>
 </body>
 </html>
