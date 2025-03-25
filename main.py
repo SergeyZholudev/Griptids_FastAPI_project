@@ -5,6 +5,11 @@ import uvicorn
 from starlette import middleware
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
+from starlette.staticfiles import StaticFiles
+from starlette.requests import Request
+from starlette.responses import Response
+from starlette.templating import Jinja2Templates
+
 
 middleware = [
     Middleware(
@@ -17,8 +22,13 @@ middleware = [
 ]
 
 app = FastAPI(middleware=middleware)
+templates = Jinja2Templates(directory="templates")
 
-app.include_router(explorer.router)
+
+@app.get("")
+@app.get("/")
+def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 if __name__ == "__main__":
