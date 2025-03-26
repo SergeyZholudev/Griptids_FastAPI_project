@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import APIRouter
 from web import explorer
 import uvicorn
 from fake import explorer as expl
@@ -6,10 +7,6 @@ from fake import explorer as expl
 from starlette import middleware
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-from starlette.staticfiles import StaticFiles
-from starlette.requests import Request
-from starlette.responses import Response
-from starlette.templating import Jinja2Templates
 
 
 middleware = [
@@ -23,15 +20,7 @@ middleware = [
 ]
 
 app = FastAPI(middleware=middleware)
-templates = Jinja2Templates(directory="templates")
-
-
-@app.get("")
-@app.get("/")
-def index(request: Request):
-    return templates.TemplateResponse(
-        "index.html", {"request": request, "listOfExplorers": expl.get_all()}
-    )
+app.include_router(explorer.router)
 
 
 if __name__ == "__main__":
