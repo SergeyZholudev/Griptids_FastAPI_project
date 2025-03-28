@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-from fastapi import APIRouter
 from web import explorer
 import uvicorn
-from fake import explorer as expl
 
 from starlette import middleware
 from starlette.middleware import Middleware
