@@ -1,3 +1,6 @@
+# Examples of some constructions(html, CSS and etc)
+ExampleOfHTML/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -62,8 +65,8 @@ db.sqlite3
 db.sqlite3-journal
 
 #SQLite3 DB
-.db
-.db-journal
+[*].db
+[*].db-journal
 
 # Flask stuff:
 instance/
