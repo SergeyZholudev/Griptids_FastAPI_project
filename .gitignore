@@ -65,6 +65,7 @@ db.sqlite3
 db.sqlite3-journal
 
 #SQLite3 DB
+db/
 [*].db
 [*].db-journal
 
