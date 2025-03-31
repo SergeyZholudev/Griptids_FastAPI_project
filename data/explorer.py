@@ -1,14 +1,11 @@
-# from .__init__ import conn, curs
+from .__init__ import conn, curs
 from model.explorer import Explorer
-import sqlite3
 
-DB_NAME = "cryptid.db"
-conn = sqlite3.connect(DB_NAME, check_same_thread=False)
-curs = conn.cursor()
-
-
-def init():
-    curs.execute("create table if not exist explorer(name, country)")
+curs.execute(
+    """create table if not exists explorer(
+             name text primary key,
+             country text)"""
+)
 
 
 def row_to_obj(row: tuple) -> Explorer:
