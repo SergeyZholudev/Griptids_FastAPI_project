@@ -1,5 +1,6 @@
-from .__init__ import conn, curs
+from .__init__ import conn, curs, IntegrityError
 from model.explorer import Explorer
+from error import Missing, Duplicate
 
 curs.execute(
     """create table if not exists explorer(
@@ -11,7 +12,7 @@ curs.execute(
 def row_to_obj(row: tuple) -> Explorer:
     """deserializtion"""
     name, country = row
-    return Explorer(name, country)
+    return Explorer(name=name, country=country)
 
 
 def obj_to_dict(explorer: Explorer) -> dict:
@@ -22,8 +23,8 @@ def obj_to_dict(explorer: Explorer) -> dict:
 
 def get_all() -> list[Explorer]:
     qry = "select * from explorer"
-    res = curs.execute(qry)
-    return res
+    curs.execute(qry)
+    return [row_to_obj(row) for row in curs.fetchall()]
 
 
 def get_one(name: str) -> Explorer:

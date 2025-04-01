@@ -9,7 +9,7 @@
     <h1>This is a list of explorers</h1>
     <ul>
         {% for item in listOfExplorers %}
-        <li>{{ item[0] }} : {{ item[1] }}</li>
+        <li>{{ item.name }} : {{ item.country }}</li>
         {% endfor %}
     </ul>
 </body>
