@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Body, status
+from fastapi import APIRouter, HTTPException
 from model.explorer import Explorer
 import data.explorer as expl
+from error import Missing, Duplicate
 
 from starlette.requests import Request
 from starlette.responses import Response
@@ -20,12 +21,20 @@ def index(request: Request):
 
 @router.get("/{name}")
 def get_one(request: Request, name: str):
-    return templates.TemplateResponse(
-        "one_name.html", {"request": request, "explorer": expl.get_one(name)}
-    )
+    try:
+        return templates.TemplateResponse(
+            "one_name.html", {"request": request, "explorer": expl.get_one(name)}
+        )
+    except Missing as exc:
+        return templates.TemplateResponse(
+            "warning.html", {"request": request, "warning": exc.msg}
+        )
 
 
-@router.post("/create")
+@router.post("/create/", status_code=201)
+@router.post("/create", status_code=201)
 def create(explorer: Explorer):
-    expl.create(explorer)
-    return {"input_data": explorer, "statusCode": status.HTTP_201_CREATED}
+    try:
+        return expl.create(explorer)
+    except Duplicate as exc:
+        raise HTTPException(status_code=404, detail=exc.msg)

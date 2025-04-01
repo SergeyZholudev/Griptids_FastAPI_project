@@ -32,10 +32,20 @@ def get_one(name: str) -> Explorer:
     params = {"name": name}
     curs.execute(qry, params)
     row = curs.fetchone()
-    return row
+    if row:
+        return row_to_obj(row)
+    else:
+        raise Missing(msg=f"Explorer {name} not found.")
 
 
-def create(explorer: Explorer):
+def create(explorer: Explorer) -> Explorer:
+    if not explorer:
+        return None
     qry = "insert into explorer(name, country) values(:name, :country)"
     params = obj_to_dict(explorer)
-    curs.execute(qry, params)
+    print(params)
+    try:
+        curs.execute(qry, params)
+    except IntegrityError:
+        raise Duplicate(msg="Explorer %s already exists." % params["name"])
+    return get_one(explorer.name)
