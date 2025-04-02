@@ -43,7 +43,6 @@ def create(explorer: Explorer) -> Explorer:
         return None
     qry = "insert into explorer(name, country) values(:name, :country)"
     params = obj_to_dict(explorer)
-    print(params)
     try:
         curs.execute(qry, params)
     except IntegrityError:

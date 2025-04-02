@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Cryptid(BaseModel):
+class Criptid(BaseModel):
     name: str
     area: str
     size: str

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from starlette.templating import Jinja2Templates
-from service.criptids import Criptid as crip
+import service.criptids as crip
 from model.criptid import Criptid
 
 from starlette.requests import Request
