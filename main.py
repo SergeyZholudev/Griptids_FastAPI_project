@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from web import explorer
+from web import criptids
 import uvicorn
 
 from starlette import middleware
@@ -19,6 +20,7 @@ middleware = [
 
 app = FastAPI(middleware=middleware)
 app.include_router(explorer.router)
+app.include_router(criptids.router)
 
 
 if __name__ == "__main__":

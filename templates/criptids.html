@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css" type="text/css"
     <title>Criptids</title>
+    <style>
+        .list {
+            list-style-position: inside;
+            margin-right: 70%;
+        }
+        .list li {
+            padding: 10px;
+            padding-left: 30px;
+        }
+        .list li:nth-child(odd) {
+            background-color: rgba(34, 102, 17, 0.85);
+        }
+        .list li:nth-child(even) {
+            background-color: rgba(133, 188, 207, 0.4);
+        }
+    </style>
 </head>
 <body>
     <main>
-        
+        <h1>The list of Criptids:</h1>
+        <ul class="list">
+            {% for cirptid in criptids_list %}
+            <li>{{ criptid.name : criptid.area : criptid.size }}</li>
+            {% endfor %}
+        </ul>
     </main>
     <footer>
 

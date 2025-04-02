@@ -4,7 +4,6 @@ import data.explorer as expl
 from error import Missing, Duplicate
 
 from starlette.requests import Request
-from starlette.responses import Response
 from starlette.templating import Jinja2Templates
 
 router = APIRouter(prefix="/explorer")
@@ -31,7 +30,6 @@ def get_one(request: Request, name: str):
         )
 
 
-@router.post("/create/", status_code=201)
 @router.post("/create", status_code=201)
 def create(explorer: Explorer):
     try:
